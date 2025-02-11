@@ -20,4 +20,12 @@ class CategoryList {
       ...data?.map((e) => e.toJson()) ?? [],
     ];
   }
+
+  CategoryList copyWith({
+    List<Category>? data,
+  }) {
+    return CategoryList(
+      data: data ?? this.data,
+    );
+  }
 }

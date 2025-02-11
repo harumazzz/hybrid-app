@@ -19,4 +19,16 @@ class Category {
     data['url'] = url;
     return data;
   }
+
+  Category copyWith({
+    String? slug,
+    String? name,
+    String? url,
+  }) {
+    return Category(
+      slug: slug ?? this.slug,
+      name: name ?? this.name,
+      url: url ?? this.url,
+    );
+  }
 }

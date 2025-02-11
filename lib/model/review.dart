@@ -30,4 +30,20 @@ class Review {
     data['reviewerEmail'] = reviewerEmail;
     return data;
   }
+
+  Review copyWith({
+    int? rating,
+    String? comment,
+    String? date,
+    String? reviewerName,
+    String? reviewerEmail,
+  }) {
+    return Review(
+      rating: rating ?? this.rating,
+      comment: comment ?? this.comment,
+      date: date ?? this.date,
+      reviewerName: reviewerName ?? this.reviewerName,
+      reviewerEmail: reviewerEmail ?? this.reviewerEmail,
+    );
+  }
 }

@@ -21,4 +21,18 @@ class Meta {
     data['qrCode'] = qrCode;
     return data;
   }
+
+  Meta copyWith({
+    String? createdAt,
+    String? updatedAt,
+    String? barcode,
+    String? qrCode,
+  }) {
+    return Meta(
+      createdAt: createdAt ?? this.createdAt,
+      updatedAt: updatedAt ?? this.updatedAt,
+      barcode: barcode ?? this.barcode,
+      qrCode: qrCode ?? this.qrCode,
+    );
+  }
 }

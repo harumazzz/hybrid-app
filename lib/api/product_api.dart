@@ -5,7 +5,7 @@ import 'package:hybrid_app/model/product_list.dart';
 import 'package:hybrid_app/util/service_locator.dart';
 
 class ProductApi {
-  final String _url = 'products';
+  final String _url = '/products';
 
   Future<ProductList> getAllProducts({
     required int skip,

@@ -22,4 +22,16 @@ class Dimension {
     data['depth'] = depth;
     return data;
   }
+
+  Dimension copyWith({
+    double? width,
+    double? height,
+    double? depth,
+  }) {
+    return Dimension(
+      width: width ?? this.width,
+      height: height ?? this.height,
+      depth: depth ?? this.depth,
+    );
+  }
 }

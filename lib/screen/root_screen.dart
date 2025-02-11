@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:hybrid_app/screen/home/home_screen.dart';
 
 class RootScreen extends StatelessWidget {
   const RootScreen({super.key});
@@ -9,7 +10,7 @@ class RootScreen extends StatelessWidget {
       appBar: AppBar(
         title: Text('Hybrid App'),
       ),
-      body: ListView(),
+      body: HomeScreen(),
     );
   }
 }
