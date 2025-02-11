@@ -23,14 +23,10 @@ class HomeScreen extends StatelessWidget {
             }
           },
           builder: (context, state) {
-            if (state is ProductInitial || state is Producting) {
+            if (state is ProductInitial || state is ProductFirstLoading) {
               return const LoadingWidget();
-            } else if (state is ProductFinish) {
-              return ListProduct(
-                productList: state.productList,
-              );
             } else {
-              return const SizedBox.shrink();
+              return ListProduct();
             }
           },
         ),

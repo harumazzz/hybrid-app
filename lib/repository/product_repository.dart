@@ -11,12 +11,10 @@ class ProductRepository {
   Future<ProductList> getAllProducts({
     required int skip,
     required int limit,
-    required int page,
   }) async {
     return await _productApi.getAllProducts(
       skip: skip,
       limit: limit,
-      page: page,
     );
   }
 

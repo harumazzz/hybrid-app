@@ -4,73 +4,62 @@ part of 'product_bloc.dart';
 class ProductState extends Equatable {
   final int page;
   final int limit;
-  final int skip;
+  final ProductList productList;
 
   const ProductState({
     required this.limit,
     required this.page,
-    required this.skip,
+    required this.productList,
   });
 
   @override
-  List<Object> get props => [page, limit, skip];
+  List<Object> get props => [page, limit, productList];
 
   ProductState copyWith({
     int? page,
     int? limit,
-    int? skip,
+    ProductList? productList,
   }) {
     return ProductState(
       limit: limit ?? this.limit,
       page: page ?? this.page,
-      skip: skip ?? this.skip,
+      productList: productList ?? this.productList,
     );
   }
+
+  int get skip => limit * page;
 }
 
 final class ProductInitial extends ProductState {
   const ProductInitial({
     required super.limit,
     required super.page,
-    required super.skip,
+    required super.productList,
   });
 }
 
-final class Producting extends ProductState {
-  const Producting({
+final class ProductFirstLoading extends ProductState {
+  const ProductFirstLoading({
     required super.limit,
     required super.page,
-    required super.skip,
+    required super.productList,
+  });
+}
+
+final class ProductLoading extends ProductState {
+  const ProductLoading({
+    required super.limit,
+    required super.page,
+    required super.productList,
   });
 }
 
 final class ProductFinish extends ProductState {
-  final ProductList productList;
-
   const ProductFinish({
     required super.limit,
     required super.page,
-    required super.skip,
-    required this.productList,
+    required super.productList,
   });
-
-  @override
-  List<Object> get props => [...super.props, productList];
-
-  @override
-  ProductFinish copyWith({
-    int? page,
-    int? limit,
-    int? skip,
-    ProductList? productList,
-  }) {
-    return ProductFinish(
-      limit: limit ?? this.limit,
-      page: page ?? this.page,
-      skip: skip ?? this.skip,
-      productList: productList ?? this.productList,
-    );
-  }
 }
 
 final class ProductError extends ProductState {
@@ -79,7 +68,7 @@ final class ProductError extends ProductState {
   const ProductError({
     required super.limit,
     required super.page,
-    required super.skip,
+    required super.productList,
     required this.message,
   });
 
@@ -90,14 +79,22 @@ final class ProductError extends ProductState {
   ProductError copyWith({
     int? page,
     int? limit,
-    int? skip,
+    ProductList? productList,
     String? message,
   }) {
     return ProductError(
       limit: limit ?? this.limit,
       page: page ?? this.page,
-      skip: skip ?? this.skip,
+      productList: productList ?? this.productList,
       message: message ?? this.message,
     );
   }
+}
+
+final class ProductFull extends ProductState {
+  const ProductFull({
+    required super.limit,
+    required super.page,
+    required super.productList,
+  });
 }

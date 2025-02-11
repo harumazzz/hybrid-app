@@ -10,14 +10,14 @@ class Dimension {
   });
 
   Dimension.fromJson(Map<String, dynamic> json) {
-    width = json['width'];
-    height = json['height'];
-    depth = json['depth'];
+    width = (json['width'] as num).toDouble();
+    height = (json['height'] as num).toDouble();
+    depth = (json['depth'] as num).toDouble();
   }
 
   Map<String, dynamic> toJson() {
     final Map<String, dynamic> data = <String, dynamic>{};
-    data['width'] = width;
+    data['width'] = (width);
     data['height'] = height;
     data['depth'] = depth;
     return data;

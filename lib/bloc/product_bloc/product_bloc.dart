@@ -10,7 +10,7 @@ part 'product_state.dart';
 
 class ProductBloc extends Bloc<ProductEvent, ProductState> {
   //  5 product => limit = 5
-  ProductBloc() : super(const ProductInitial(page: 0, limit: 5, skip: 0)) {
+  ProductBloc() : super(ProductInitial(page: 0, limit: 5, productList: ProductList(products: []))) {
     on<ProductLoadEvent>(_loadProduct);
   }
 
@@ -18,23 +18,22 @@ class ProductBloc extends Bloc<ProductEvent, ProductState> {
     ProductLoadEvent event,
     Emitter<ProductState> emit,
   ) async {
-    // only  if
-    assert(state is ProductFinish || state is ProductInitial || state is ProductError);
-    emit(Producting(limit: state.limit, page: state.page, skip: state.skip));
-    final products = state is ProductFinish ? (state as ProductFinish).productList : ProductList(products: []);
+    if (state.productList.products!.isEmpty) {
+      emit(ProductFirstLoading(limit: state.limit, page: state.page, productList: state.productList));
+    } else {
+      emit(ProductLoading(limit: state.limit, page: state.page, productList: state.productList));
+    }
     final productRepository = ServiceLocator.get<ProductRepository>();
     try {
       final newProducts = await productRepository.getAllProducts(
-        skip: state.skip,
-        page: state.page,
         limit: state.limit,
+        skip: state.skip,
       );
-      products.products!.addAll(newProducts.products!);
+      state.productList.products!.addAll(newProducts.products!);
       emit(ProductFinish(
         limit: state.limit,
         page: state.page + 1,
-        skip: state.skip,
-        productList: products,
+        productList: state.productList,
       ));
     } catch (e, s) {
       // visible to debug only : stack for knowing error
@@ -42,7 +41,7 @@ class ProductBloc extends Bloc<ProductEvent, ProductState> {
       emit(ProductError(
         limit: state.limit,
         page: state.page,
-        skip: state.skip,
+        productList: state.productList,
         message: e.toString(),
       ));
     }

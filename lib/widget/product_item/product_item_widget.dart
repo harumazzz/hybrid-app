@@ -6,9 +6,12 @@ class ProductItemWidget extends StatelessWidget {
   const ProductItemWidget({
     super.key,
     required this.product,
+    required this.onMove,
   });
 
   final Product product;
+
+  final void Function(BuildContext context) onMove;
 
   Widget _loading(DownloadProgress progress) {
     return Center(
@@ -18,13 +21,11 @@ class ProductItemWidget extends StatelessWidget {
     );
   }
 
-  void _onMove(BuildContext context) {}
-
   @override
   Widget build(BuildContext context) {
     return Card(
       child: ListTile(
-        onTap: () => _onMove(context),
+        onTap: () => onMove(context),
         leading: SizedBox(
           width: 50.0,
           height: 50.0,
