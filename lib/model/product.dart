@@ -114,6 +114,8 @@ class Product {
     return data;
   }
 
+  double get discountedPrice => price! * (1 - discountPercentage! / 100);
+
   Product copyWith({
     int? id,
     String? title,

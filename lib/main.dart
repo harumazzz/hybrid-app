@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:hybrid_app/bloc/product_bloc/product_bloc.dart';
 import 'package:hybrid_app/screen/root_screen.dart';
 import 'package:hybrid_app/util/service_locator.dart';
 
@@ -15,14 +17,17 @@ class MyApp extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return MaterialApp(
-      title: 'Hybrid App',
-      debugShowCheckedModeBanner: false,
-      theme: ThemeData(
-        colorScheme: ColorScheme.fromSeed(seedColor: Colors.deepPurple),
-        useMaterial3: true,
+    return BlocProvider(
+      create: (_) => ProductBloc()..add(const ProductLoadEvent()),
+      child: MaterialApp(
+        title: 'Hybrid App',
+        debugShowCheckedModeBanner: false,
+        theme: ThemeData(
+          colorScheme: ColorScheme.fromSeed(seedColor: Colors.deepPurple),
+          useMaterial3: true,
+        ),
+        home: RootScreen(),
       ),
-      home: RootScreen(),
     );
   }
 }

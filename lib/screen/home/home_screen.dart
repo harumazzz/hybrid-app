@@ -10,26 +10,27 @@ class HomeScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return BlocProvider<ProductBloc>(
-      create: (context) => ProductBloc()..add(const ProductLoadEvent()),
-      child: Builder(
-        builder: (context) => BlocConsumer<ProductBloc, ProductState>(
-          listener: (context, state) async {
-            if (state is ProductError) {
-              await DialogHelper.showErrorDialog(
-                context: context,
-                content: state.message,
-              );
-            }
-          },
-          builder: (context, state) {
-            if (state is ProductInitial || state is ProductFirstLoading) {
-              return const LoadingWidget();
-            } else {
-              return ListProduct();
-            }
-          },
-        ),
+    return Builder(
+      builder: (context) => BlocConsumer<ProductBloc, ProductState>(
+        listener: (context, state) async {
+          if (state is ProductError) {
+            await DialogHelper.showErrorDialog(
+              context: context,
+              content: state.message,
+            );
+          }
+        },
+        builder: (context, state) {
+          if (state is ProductInitial || state is ProductFirstLoading) {
+            return const LoadingWidget();
+          } else {
+            return ListProduct(
+              onEvent: () {
+                return const ProductLoadEvent();
+              },
+            );
+          }
+        },
       ),
     );
   }

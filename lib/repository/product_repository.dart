@@ -28,9 +28,13 @@ class ProductRepository {
 
   Future<ProductList> searchProducts({
     required String prefix,
+    required int skip,
+    required int limit,
   }) async {
     return await _productApi.searchProducts(
       prefix: prefix,
+      skip: skip,
+      limit: limit,
     );
   }
 

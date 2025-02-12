@@ -33,11 +33,15 @@ class ProductApi {
 
   Future<ProductList> searchProducts({
     required String prefix,
+    required int skip,
+    required int limit,
   }) async {
     try {
       final dio = ServiceLocator.get<Dio>();
-      final data = await dio.get(_url, queryParameters: {
+      final data = await dio.get('$_url/search', queryParameters: {
         'q': prefix,
+        'skip': skip,
+        'limit': limit,
       });
       return ProductList.fromJson(data.data);
     } catch (e) {

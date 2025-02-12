@@ -12,12 +12,55 @@ class ProductBloc extends Bloc<ProductEvent, ProductState> {
   //  5 product => limit = 5
   ProductBloc() : super(ProductInitial(page: 0, limit: 5, productList: ProductList(products: []))) {
     on<ProductLoadEvent>(_loadProduct);
+    on<ProductSearchEvent>(_searchProduct);
+    on<ProductClearEvent>(_stop);
   }
 
   Future<void> _loadProduct(
     ProductLoadEvent event,
     Emitter<ProductState> emit,
   ) async {
+    return await _fetchProducts(
+      event: event,
+      emit: emit,
+      makeProducts: (ProductRepository productRepository) async {
+        return await productRepository.getAllProducts(
+          limit: state.limit,
+          skip: state.skip,
+        );
+      },
+    );
+  }
+
+  Future<void> _searchProduct(
+    ProductSearchEvent event,
+    Emitter<ProductState> emit,
+  ) async {
+    return await _fetchProducts(
+      event: event,
+      emit: emit,
+      makeProducts: (ProductRepository productRepository) async {
+        return await productRepository.searchProducts(
+          prefix: event.prefix,
+          limit: state.limit,
+          skip: state.skip,
+        );
+      },
+    );
+  }
+
+  void _stop(
+    ProductClearEvent event,
+    Emitter<ProductState> emit,
+  ) {
+    emit(ProductClear(limit: state.limit, page: 0, productList: ProductList(products: [])));
+  }
+
+  Future<void> _fetchProducts({
+    required Future<ProductList> Function(ProductRepository productRepository) makeProducts,
+    required ProductEvent event,
+    required Emitter<ProductState> emit,
+  }) async {
     if (state.productList.products!.isEmpty) {
       emit(ProductFirstLoading(limit: state.limit, page: state.page, productList: state.productList));
     } else {
@@ -25,10 +68,7 @@ class ProductBloc extends Bloc<ProductEvent, ProductState> {
     }
     final productRepository = ServiceLocator.get<ProductRepository>();
     try {
-      final newProducts = await productRepository.getAllProducts(
-        limit: state.limit,
-        skip: state.skip,
-      );
+      final newProducts = await makeProducts(productRepository);
       state.productList.products!.addAll(newProducts.products!);
       emit(ProductFinish(
         limit: state.limit,

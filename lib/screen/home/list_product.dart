@@ -5,7 +5,12 @@ import 'package:hybrid_app/screen/detail/detail_screen.dart';
 import 'package:hybrid_app/widget/product_item/product_item_widget.dart';
 
 class ListProduct extends StatefulWidget {
-  const ListProduct({super.key});
+  const ListProduct({
+    super.key,
+    required this.onEvent,
+  });
+
+  final ProductEvent Function() onEvent;
 
   @override
   State<ListProduct> createState() => _ListProductState();
@@ -28,7 +33,7 @@ class _ListProductState extends State<ListProduct> {
     if (_scrollController.position.pixels >= _scrollController.position.maxScrollExtent - 200) {
       final productBloc = context.read<ProductBloc>();
       if (productBloc.state is! ProductLoading && productBloc.state is! ProductFull) {
-        productBloc.add(const ProductLoadEvent());
+        productBloc.add(widget.onEvent());
       }
     }
   }

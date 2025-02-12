@@ -98,3 +98,11 @@ final class ProductFull extends ProductState {
     required super.productList,
   });
 }
+
+final class ProductClear extends ProductState {
+  const ProductClear({
+    required super.limit,
+    required super.page,
+    required super.productList,
+  });
+}

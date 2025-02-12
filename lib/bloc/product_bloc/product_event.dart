@@ -11,3 +11,18 @@ sealed class ProductEvent extends Equatable {
 final class ProductLoadEvent extends ProductEvent {
   const ProductLoadEvent();
 }
+
+final class ProductClearEvent extends ProductEvent {
+  const ProductClearEvent();
+}
+
+final class ProductSearchEvent extends ProductEvent {
+  const ProductSearchEvent({
+    required this.prefix,
+  });
+
+  final String prefix;
+
+  @override
+  List<Object?> get props => [prefix];
+}

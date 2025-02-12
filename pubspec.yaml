@@ -41,6 +41,8 @@ dependencies:
   meta: ^1.15.0
   equatable: ^2.0.7
   cached_network_image: ^3.4.1
+  flutter_card_swiper: ^7.0.2
+  material_symbols_icons: ^4.2805.1
 
 dev_dependencies:
   flutter_test:
