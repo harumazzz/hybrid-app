@@ -53,9 +53,6 @@ class _SearchPageState extends State<SearchPage> {
           child: Center(
             child: SearchWidget(
               controller: _searchController,
-              onChange: () {
-                setState(() {});
-              },
             ),
           ),
         ),

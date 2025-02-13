@@ -44,9 +44,13 @@ class ProductRepository {
 
   Future<ProductList> getAllProductsByCategory({
     required String categoryName,
+    required int skip,
+    required int limit,
   }) async {
     return await _productApi.getAllProductsByCategory(
       categoryName: categoryName,
+      skip: skip,
+      limit: limit,
     );
   }
 }

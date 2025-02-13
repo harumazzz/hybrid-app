@@ -20,8 +20,11 @@ class ProductTile extends StatelessWidget {
       name: product.title!,
       price: product.discountedPrice,
       discountPercentage: product.discountPercentage!,
-      image: CacheImage(
-        link: product.images![0],
+      image: Hero(
+        tag: product,
+        child: CacheImage(
+          link: product.images![0],
+        ),
       ),
       onTap: onTap,
     );

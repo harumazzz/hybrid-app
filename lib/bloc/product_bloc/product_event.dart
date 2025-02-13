@@ -26,3 +26,14 @@ final class ProductSearchEvent extends ProductEvent {
   @override
   List<Object?> get props => [prefix];
 }
+
+final class ProductFilterEvent extends ProductEvent {
+  const ProductFilterEvent({
+    required this.category,
+  });
+
+  final String category;
+
+  @override
+  List<Object?> get props => [category];
+}

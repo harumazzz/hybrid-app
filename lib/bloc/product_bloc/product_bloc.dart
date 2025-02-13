@@ -13,7 +13,8 @@ class ProductBloc extends Bloc<ProductEvent, ProductState> {
   ProductBloc() : super(ProductInitial(page: 0, limit: 5, productList: ProductList(products: []))) {
     on<ProductLoadEvent>(_loadProduct);
     on<ProductSearchEvent>(_searchProduct);
-    on<ProductClearEvent>(_stop);
+    on<ProductClearEvent>(_clear);
+    on<ProductFilterEvent>(_filterProducts);
   }
 
   Future<void> _loadProduct(
@@ -49,7 +50,24 @@ class ProductBloc extends Bloc<ProductEvent, ProductState> {
     );
   }
 
-  void _stop(
+  Future<void> _filterProducts(
+    ProductFilterEvent event,
+    Emitter<ProductState> emit,
+  ) async {
+    return await _fetchProducts(
+      event: event,
+      emit: emit,
+      makeProducts: (ProductRepository productRepository) async {
+        return await productRepository.getAllProductsByCategory(
+          categoryName: event.category,
+          limit: state.limit,
+          skip: state.skip,
+        );
+      },
+    );
+  }
+
+  void _clear(
     ProductClearEvent event,
     Emitter<ProductState> emit,
   ) {
@@ -77,7 +95,7 @@ class ProductBloc extends Bloc<ProductEvent, ProductState> {
       ));
     } catch (e, s) {
       // visible to debug only : stack for knowing error
-      debugPrint(s.toString());
+      debugPrintStack(stackTrace: s);
       emit(ProductError(
         limit: state.limit,
         page: state.page,

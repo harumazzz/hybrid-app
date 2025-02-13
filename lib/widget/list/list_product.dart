@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:hybrid_app/bloc/product_bloc/product_bloc.dart';
+import 'package:hybrid_app/model/product.dart';
 import 'package:hybrid_app/screen/detail/detail_screen.dart';
 import 'package:hybrid_app/widget/product_item/product_item_widget.dart';
 
@@ -47,6 +48,19 @@ class _ListProductState extends State<ListProduct> {
     super.dispose();
   }
 
+  void _onMove(
+    BuildContext context,
+    Product product,
+  ) {
+    Navigator.of(context).push(
+      MaterialPageRoute(
+        builder: (context) => DetailScreen(
+          product: product,
+        ),
+      ),
+    );
+  }
+
   @override
   Widget build(BuildContext context) {
     return BlocConsumer<ProductBloc, ProductState>(
@@ -66,15 +80,7 @@ class _ListProductState extends State<ListProduct> {
             final product = state.productList[index];
             return ProductItemWidget(
               product: product,
-              onMove: (context) {
-                Navigator.of(context).push(
-                  MaterialPageRoute(
-                    builder: (context) => DetailScreen(
-                      product: product,
-                    ),
-                  ),
-                );
-              },
+              onMove: (context) => _onMove(context, state.productList[index]),
             );
           },
         );

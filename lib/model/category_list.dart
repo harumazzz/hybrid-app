@@ -7,9 +7,9 @@ class CategoryList {
     this.data,
   });
 
-  CategoryList.fromJson(Map<String, dynamic> json) {
+  CategoryList.fromJson(List<dynamic> json) {
     data = [
-      ...(json as List<dynamic>).map(
+      ...json.map(
         (e) => Category.fromJson(e),
       ),
     ];

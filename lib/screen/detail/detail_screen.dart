@@ -34,7 +34,10 @@ class DetailScreen extends StatelessWidget {
     }
     return SizedBox(
       height: 300.0,
-      child: child,
+      child: Hero(
+        tag: product,
+        child: child,
+      ),
     );
   }
 

@@ -60,12 +60,16 @@ class ProductApi {
   }
 
   Future<ProductList> getAllProductsByCategory({
-    // id is faster
     required String categoryName,
+    required int skip,
+    required int limit,
   }) async {
     try {
       final dio = ServiceLocator.get<Dio>();
-      final data = await dio.get('$_url/categories/$categoryName');
+      final data = await dio.get('$_url/category/$categoryName', queryParameters: {
+        'skip': skip,
+        'limit': limit,
+      });
       return ProductList.fromJson(data.data);
     } catch (e) {
       throw Exception(e);

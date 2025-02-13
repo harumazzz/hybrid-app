@@ -7,12 +7,9 @@ class SearchWidget extends StatelessWidget {
   const SearchWidget({
     super.key,
     required this.controller,
-    required this.onChange,
   });
 
   final TextEditingController controller;
-
-  final void Function() onChange;
 
   @override
   Widget build(BuildContext context) {
