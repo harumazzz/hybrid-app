@@ -28,4 +28,9 @@ class CategoryList {
       data: data ?? this.data,
     );
   }
+
+  Category operator [](int index) {
+    assert(data != null);
+    return data![index];
+  }
 }

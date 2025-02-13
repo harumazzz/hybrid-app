@@ -64,13 +64,13 @@ class ReviewSection extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     if (reviews == null || reviews!.isEmpty) {
-      return const Text("No reviews available at the moment.", style: TextStyle(fontSize: 16));
+      return const Text('No reviews available at the moment.', style: TextStyle(fontSize: 16));
     }
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
         Text(
-          "Reviews:",
+          'Reviews:',
           style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold),
         ),
         const SizedBox(height: 8),

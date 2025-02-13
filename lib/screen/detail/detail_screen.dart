@@ -91,6 +91,10 @@ class DetailScreen extends StatelessWidget {
   }
 
   Widget _buildInformation() {
+    text(String key, String value) => Text(
+          '$key: $value',
+          style: const TextStyle(fontSize: 16),
+        );
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       mainAxisAlignment: MainAxisAlignment.start,
@@ -102,36 +106,16 @@ class DetailScreen extends StatelessWidget {
             fontWeight: FontWeight.bold,
           ),
         ),
-        Text(
-          'Brand: ${product.brand}',
-          style: const TextStyle(fontSize: 16),
+        text('Brand', product.brand!),
+        text('SKU', product.sku!),
+        text('Weight', '${product.weight!}g'),
+        text(
+          'Dimensions',
+          '${product.dimensions!.width} x ${product.dimensions!.height} x ${product.dimensions!.depth}',
         ),
-        Text(
-          'SKU: ${product.sku}',
-          style: const TextStyle(fontSize: 16),
-        ),
-        Text(
-          'Weight: ${product.weight}g',
-          style: const TextStyle(fontSize: 16),
-        ),
-        Text(
-          'Dimensions: ${product.dimensions!.width} x ${product.dimensions!.height} x ${product.dimensions!.depth}',
-          style: const TextStyle(
-            fontSize: 16,
-          ),
-        ),
-        Text(
-          'Warranty: ${product.warrantyInformation}',
-          style: const TextStyle(fontSize: 16),
-        ),
-        Text(
-          'Return Policy: ${product.returnPolicy}',
-          style: const TextStyle(fontSize: 16),
-        ),
-        Text(
-          'Shipping: ${product.shippingInformation}',
-          style: const TextStyle(fontSize: 16),
-        ),
+        text('Warranty', product.warrantyInformation!),
+        text('Return Policy', product.returnPolicy!),
+        text('Shipping', product.shippingInformation!),
       ],
     );
   }

@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:hybrid_app/bloc/product_bloc/product_bloc.dart';
-import 'package:hybrid_app/screen/home/list_product.dart';
+import 'package:hybrid_app/widget/list/list_product.dart';
 import 'package:hybrid_app/util/dialog_helper.dart';
 import 'package:hybrid_app/widget/loading/loading_widget.dart';
 import 'package:hybrid_app/widget/search_widget/search_widget.dart';
