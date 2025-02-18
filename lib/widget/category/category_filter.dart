@@ -1,25 +1,40 @@
+import 'package:drop_down_list/model/selected_list_item.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:hybrid_app/bloc/category_bloc/category_bloc.dart';
 import 'package:hybrid_app/bloc/product_bloc/product_bloc.dart';
 import 'package:hybrid_app/model/category.dart';
 import 'package:hybrid_app/util/dialog_helper.dart';
+import 'package:hybrid_app/util/modal_helper.dart';
+import 'package:hybrid_app/util/ui_helper.dart';
 import 'package:hybrid_app/widget/loading/loading_widget.dart';
+import 'package:material_symbols_icons/symbols.dart';
 
-class CategoryGrid extends StatelessWidget {
-  const CategoryGrid({super.key});
+class CategoryFilter extends StatelessWidget {
+  const CategoryFilter({super.key});
 
   Widget _buildCategoriesBox({
     required BuildContext context,
     required CategoryLoaded state,
   }) {
-    return Padding(
-      padding: const EdgeInsets.symmetric(horizontal: 8.0),
-      child: Wrap(
-        spacing: 4.0,
-        alignment: WrapAlignment.start,
-        children: [...state.value.data!.map((e) => _buildCategory(context: context, category: e))],
-      ),
+    return IconButton(
+      icon: Icon(Symbols.category),
+      onPressed: () {
+        ModalHelper.showDropDownModal(
+          context: context,
+          data: UiHelper.makeSelectedItems<Category, Category>(
+            data: state.value.data!,
+            transformation: (e) => SelectedListItem<Category>(data: e),
+          ),
+          onTap: (selectedItems) {
+            final result = <Category>[];
+            for (final item in selectedItems) {
+              result.add(item.data);
+            }
+            _onTap(context, result[0].slug!);
+          },
+        );
+      },
     );
   }
 
@@ -29,35 +44,6 @@ class CategoryGrid extends StatelessWidget {
   ) {
     context.read<ProductBloc>().add(const ProductClearEvent());
     context.read<ProductBloc>().add(ProductFilterEvent(category: categoryId));
-  }
-
-  Widget _buildCategory({
-    required BuildContext context,
-    required Category category,
-  }) {
-    return Card(
-      elevation: 3,
-      shape: RoundedRectangleBorder(
-        borderRadius: BorderRadius.circular(12.0),
-      ),
-      color: Theme.of(context).colorScheme.primaryContainer,
-      child: InkWell(
-        onTap: () => _onTap(context, category.slug!),
-        child: Padding(
-          padding: const EdgeInsets.symmetric(
-            horizontal: 6.0,
-            vertical: 4.0,
-          ),
-          child: Text(
-            category.name!,
-            style: Theme.of(context).textTheme.bodyMedium?.copyWith(
-                  fontWeight: FontWeight.w600,
-                  color: Theme.of(context).colorScheme.onPrimaryContainer,
-                ),
-          ),
-        ),
-      ),
-    );
   }
 
   @override

@@ -3,6 +3,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:hybrid_app/bloc/product_bloc/product_bloc.dart';
 import 'package:hybrid_app/screen/home/home_screen.dart';
 import 'package:hybrid_app/screen/search/search_page.dart';
+import 'package:hybrid_app/widget/category/category_filter.dart';
 import 'package:material_symbols_icons/symbols.dart';
 
 class RootScreen extends StatelessWidget {
@@ -27,6 +28,7 @@ class RootScreen extends StatelessWidget {
             onPressed: () => _onSearch(context),
             icon: const Icon(Symbols.search),
           ),
+          CategoryFilter(),
         ],
       ),
       body: HomeScreen(),

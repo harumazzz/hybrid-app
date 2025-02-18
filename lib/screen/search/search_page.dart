@@ -1,6 +1,9 @@
+import 'dart:async';
+
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:hybrid_app/bloc/product_bloc/product_bloc.dart';
+import 'package:hybrid_app/util/thread_helper.dart';
 import 'package:hybrid_app/widget/list/list_product.dart';
 import 'package:hybrid_app/util/dialog_helper.dart';
 import 'package:hybrid_app/widget/loading/loading_widget.dart';
@@ -17,6 +20,8 @@ class SearchPage extends StatefulWidget {
 class _SearchPageState extends State<SearchPage> {
   late TextEditingController _searchController;
 
+  Timer? _debounce;
+
   @override
   void initState() {
     _searchController = TextEditingController();
@@ -25,6 +30,7 @@ class _SearchPageState extends State<SearchPage> {
 
   @override
   void dispose() {
+    _debounce?.cancel();
     _searchController.dispose();
     super.dispose();
   }
@@ -33,6 +39,19 @@ class _SearchPageState extends State<SearchPage> {
     context.read<ProductBloc>().add(const ProductClearEvent());
     context.read<ProductBloc>().add(const ProductLoadEvent());
     Navigator.of(context).pop();
+  }
+
+  void _onSearch(String value) {
+    _debounce?.cancel();
+    _debounce = ThreadHelper.asNewInstance(
+      milliseconds: 300,
+      callback: () {
+        if (value.isNotEmpty) {
+          context.read<ProductBloc>().add(const ProductClearEvent());
+          context.read<ProductBloc>().add(ProductSearchEvent(prefix: value));
+        }
+      },
+    );
   }
 
   @override
@@ -53,6 +72,7 @@ class _SearchPageState extends State<SearchPage> {
           child: Center(
             child: SearchWidget(
               controller: _searchController,
+              onSearch: _onSearch,
             ),
           ),
         ),

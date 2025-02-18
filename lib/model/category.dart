@@ -31,4 +31,10 @@ class Category {
       url: url ?? this.url,
     );
   }
+
+  @override
+  String toString() {
+    assert(name != null);
+    return name!;
+  }
 }

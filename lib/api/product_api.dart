@@ -11,12 +11,16 @@ class ProductApi {
     required int skip,
     required int limit,
   }) async {
-    final dio = ServiceLocator.get<Dio>();
-    final data = await dio.get(_url, queryParameters: {
-      'skip': skip,
-      'limit': limit,
-    });
-    return ProductList.fromJson(data.data);
+    try {
+      final dio = ServiceLocator.get<Dio>();
+      final data = await dio.get(_url, queryParameters: {
+        'skip': skip,
+        'limit': limit,
+      });
+      return ProductList.fromJson(data.data);
+    } catch (e) {
+      throw Exception(e);
+    }
   }
 
   Future<Product> getSingleProduct({
