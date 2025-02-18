@@ -1,9 +1,7 @@
-import 'package:drop_down_list/model/selected_list_item.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:hybrid_app/bloc/category_bloc/category_bloc.dart';
 import 'package:hybrid_app/bloc/product_bloc/product_bloc.dart';
-import 'package:hybrid_app/model/category.dart';
+import 'package:hybrid_app/cubit/category_cubit/category_cubit.dart';
 import 'package:hybrid_app/util/dialog_helper.dart';
 import 'package:hybrid_app/util/modal_helper.dart';
 import 'package:hybrid_app/util/ui_helper.dart';
@@ -13,28 +11,27 @@ import 'package:material_symbols_icons/symbols.dart';
 class CategoryFilter extends StatelessWidget {
   const CategoryFilter({super.key});
 
+  void _onShow({
+    required BuildContext context,
+    required CategoryLoaded state,
+  }) {
+    ModalHelper.showDropDownModal(
+      context: context,
+      data: UiHelper.makeDefaultItems(data: state.value.data!),
+      onTap: (selectedItems) {
+        final result = UiHelper.toItemList(selectedItems);
+        _onTap(context, result[0].slug!);
+      },
+    );
+  }
+
   Widget _buildCategoriesBox({
     required BuildContext context,
     required CategoryLoaded state,
   }) {
     return IconButton(
       icon: Icon(Symbols.category),
-      onPressed: () {
-        ModalHelper.showDropDownModal(
-          context: context,
-          data: UiHelper.makeSelectedItems<Category, Category>(
-            data: state.value.data!,
-            transformation: (e) => SelectedListItem<Category>(data: e),
-          ),
-          onTap: (selectedItems) {
-            final result = <Category>[];
-            for (final item in selectedItems) {
-              result.add(item.data);
-            }
-            _onTap(context, result[0].slug!);
-          },
-        );
-      },
+      onPressed: () => _onShow(context: context, state: state),
     );
   }
 
@@ -48,7 +45,7 @@ class CategoryFilter extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return BlocConsumer<CategoryBloc, CategoryState>(
+    return BlocConsumer<CategoryCubit, CategoryState>(
       listener: (context, state) async {
         if (state is CategoryLoadError) {
           await DialogHelper.showErrorDialog(
