@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:hybrid_app/bloc/product_bloc/product_bloc.dart';
+import 'package:hybrid_app/cubit/cubit/product_cubit.dart';
 import 'package:hybrid_app/widget/list/list_product.dart';
 import 'package:hybrid_app/util/dialog_helper.dart';
 import 'package:hybrid_app/widget/loading/loading_widget.dart';
@@ -11,8 +11,8 @@ class HomeScreen extends StatelessWidget {
   Widget _buildList() {
     return Expanded(
       child: ListProduct(
-        onEvent: () {
-          return const ProductLoadEvent();
+        onChange: (cubit) async {
+          return await cubit.loadProducts();
         },
       ),
     );
@@ -21,7 +21,7 @@ class HomeScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Builder(
-      builder: (context) => BlocConsumer<ProductBloc, ProductState>(
+      builder: (context) => BlocConsumer<ProductCubit, ProductState>(
         listener: (context, state) async {
           if (state is ProductError) {
             await DialogHelper.showErrorDialog(

@@ -2,7 +2,7 @@ import 'dart:async';
 
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:hybrid_app/bloc/product_bloc/product_bloc.dart';
+import 'package:hybrid_app/cubit/cubit/product_cubit.dart';
 import 'package:hybrid_app/util/thread_helper.dart';
 import 'package:hybrid_app/widget/list/list_product.dart';
 import 'package:hybrid_app/util/dialog_helper.dart';
@@ -35,20 +35,21 @@ class _SearchPageState extends State<SearchPage> {
     super.dispose();
   }
 
-  void _dispose() {
-    context.read<ProductBloc>().add(const ProductClearEvent());
-    context.read<ProductBloc>().add(const ProductLoadEvent());
-    Navigator.of(context).pop();
+  void _dispose() async {
+    popDialog() => Navigator.of(context).pop();
+    context.read<ProductCubit>().clearProducts();
+    await context.read<ProductCubit>().loadProducts();
+    popDialog();
   }
 
   void _onSearch(String value) {
     _debounce?.cancel();
     _debounce = ThreadHelper.asNewInstance(
       milliseconds: 300,
-      callback: () {
+      callback: () async {
         if (value.isNotEmpty) {
-          context.read<ProductBloc>().add(const ProductClearEvent());
-          context.read<ProductBloc>().add(ProductSearchEvent(prefix: value));
+          context.read<ProductCubit>().clearProducts();
+          await context.read<ProductCubit>().searchProducts(value);
         }
       },
     );
@@ -77,7 +78,7 @@ class _SearchPageState extends State<SearchPage> {
           ),
         ),
       ),
-      body: BlocConsumer<ProductBloc, ProductState>(
+      body: BlocConsumer<ProductCubit, ProductState>(
         listener: (context, state) async {
           if (state is ProductError) {
             await DialogHelper.showErrorDialog(
@@ -93,10 +94,8 @@ class _SearchPageState extends State<SearchPage> {
             return const SizedBox.shrink();
           } else {
             return ListProduct(
-              onEvent: () {
-                return ProductSearchEvent(
-                  prefix: _searchController.text,
-                );
+              onChange: (cubit) async {
+                return await cubit.searchProducts(_searchController.text);
               },
             );
           }

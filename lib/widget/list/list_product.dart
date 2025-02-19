@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:hybrid_app/bloc/product_bloc/product_bloc.dart';
+import 'package:hybrid_app/cubit/cubit/product_cubit.dart';
 import 'package:hybrid_app/model/product.dart';
 import 'package:hybrid_app/screen/detail/detail_screen.dart';
 import 'package:hybrid_app/widget/product_item/product_item_widget.dart';
@@ -8,10 +8,10 @@ import 'package:hybrid_app/widget/product_item/product_item_widget.dart';
 class ListProduct extends StatefulWidget {
   const ListProduct({
     super.key,
-    required this.onEvent,
+    required this.onChange,
   });
 
-  final ProductEvent Function() onEvent;
+  final Future<void> Function(ProductCubit cubit) onChange;
 
   @override
   State<ListProduct> createState() => _ListProductState();
@@ -30,11 +30,11 @@ class _ListProductState extends State<ListProduct> {
     _scrollController.addListener(_onScroll);
   }
 
-  void _onScroll() {
+  void _onScroll() async {
     if (_scrollController.position.pixels >= _scrollController.position.maxScrollExtent - 200) {
-      final productBloc = context.read<ProductBloc>();
-      if (productBloc.state is! ProductLoading && productBloc.state is! ProductFull) {
-        productBloc.add(widget.onEvent());
+      final productCubit = context.read<ProductCubit>();
+      if (productCubit.state is! ProductLoading && productCubit.state is! ProductFull) {
+        await widget.onChange(productCubit);
       }
     }
   }
@@ -63,7 +63,7 @@ class _ListProductState extends State<ListProduct> {
 
   @override
   Widget build(BuildContext context) {
-    return BlocConsumer<ProductBloc, ProductState>(
+    return BlocConsumer<ProductCubit, ProductState>(
       listener: (context, state) {
         if (state is ProductFull) {
           _scrollController.removeListener(_onScroll);

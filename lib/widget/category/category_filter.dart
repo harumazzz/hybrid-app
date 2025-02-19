@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:hybrid_app/bloc/product_bloc/product_bloc.dart';
 import 'package:hybrid_app/cubit/category_cubit/category_cubit.dart';
+import 'package:hybrid_app/cubit/cubit/product_cubit.dart';
 import 'package:hybrid_app/util/dialog_helper.dart';
 import 'package:hybrid_app/util/modal_helper.dart';
 import 'package:hybrid_app/util/ui_helper.dart';
@@ -18,9 +18,9 @@ class CategoryFilter extends StatelessWidget {
     ModalHelper.showDropDownModal(
       context: context,
       data: UiHelper.makeDefaultItems(data: state.value.data!),
-      onTap: (selectedItems) {
+      onTap: (selectedItems) async {
         final result = UiHelper.toItemList(selectedItems);
-        _onTap(context, result[0].slug!);
+        await _onTap(context, result[0].slug!);
       },
     );
   }
@@ -35,12 +35,12 @@ class CategoryFilter extends StatelessWidget {
     );
   }
 
-  void _onTap(
+  Future<void> _onTap(
     BuildContext context,
     String categoryId,
-  ) {
-    context.read<ProductBloc>().add(const ProductClearEvent());
-    context.read<ProductBloc>().add(ProductFilterEvent(category: categoryId));
+  ) async {
+    context.read<ProductCubit>().clearProducts();
+    await context.read<ProductCubit>().filterProducts(categoryId);
   }
 
   @override

@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:hybrid_app/bloc/product_bloc/product_bloc.dart';
 import 'package:hybrid_app/cubit/category_cubit/category_cubit.dart';
+import 'package:hybrid_app/cubit/cubit/product_cubit.dart';
 import 'package:hybrid_app/screen/root_screen.dart';
 import 'package:hybrid_app/util/service_locator.dart';
 
@@ -20,8 +20,12 @@ class MyApp extends StatelessWidget {
   Widget build(BuildContext context) {
     return MultiBlocProvider(
       providers: [
-        BlocProvider<ProductBloc>(
-          create: (_) => ProductBloc()..add(const ProductLoadEvent()),
+        BlocProvider<ProductCubit>(
+          create: (_) {
+            final cubit = ProductCubit();
+            cubit.loadProducts();
+            return cubit;
+          },
         ),
         BlocProvider<CategoryCubit>(
           create: (context) {
