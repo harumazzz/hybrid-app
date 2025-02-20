@@ -3,14 +3,16 @@ import 'package:equatable/equatable.dart';
 import 'package:flutter/material.dart';
 import 'package:hybrid_app/model/product_list.dart';
 import 'package:hybrid_app/repository/product_repository.dart';
-import 'package:hybrid_app/util/service_locator.dart';
 
 part 'product_event.dart';
 part 'product_state.dart';
 
 class ProductBloc extends Bloc<ProductEvent, ProductState> {
+  final ProductRepository productRepository;
   //  5 product => limit = 5
-  ProductBloc() : super(ProductInitial(page: 0, limit: 5, productList: ProductList(products: []))) {
+  ProductBloc({
+    required this.productRepository,
+  }) : super(ProductInitial(page: 0, limit: 5, productList: ProductList(products: []))) {
     on<ProductLoadEvent>(_loadProduct);
     on<ProductSearchEvent>(_searchProduct);
     on<ProductClearEvent>(_clear);
@@ -84,7 +86,6 @@ class ProductBloc extends Bloc<ProductEvent, ProductState> {
     } else {
       emit(ProductLoading(limit: state.limit, page: state.page, productList: state.productList));
     }
-    final productRepository = ServiceLocator.get<ProductRepository>();
     try {
       final newProducts = await makeProducts(productRepository);
       state.productList.products!.addAll(newProducts.products!);

@@ -3,16 +3,15 @@ import 'package:equatable/equatable.dart';
 import 'package:flutter/material.dart';
 import 'package:hybrid_app/model/category_list.dart';
 import 'package:hybrid_app/repository/product_repository.dart';
-import 'package:hybrid_app/util/service_locator.dart';
 
 part 'category_state.dart';
 
 class CategoryCubit extends Cubit<CategoryState> {
   final ProductRepository productRepository;
 
-  CategoryCubit()
-      : productRepository = ServiceLocator.get<ProductRepository>(),
-        super(const CategoryInitial());
+  CategoryCubit({
+    required this.productRepository,
+  }) : super(const CategoryInitial());
 
   Future<void> loadCategory() async {
     emit(const CategoryLoad());

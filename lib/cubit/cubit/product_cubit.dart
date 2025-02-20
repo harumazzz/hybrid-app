@@ -3,24 +3,25 @@ import 'package:equatable/equatable.dart';
 import 'package:flutter/material.dart';
 import 'package:hybrid_app/model/product_list.dart';
 import 'package:hybrid_app/repository/product_repository.dart';
-import 'package:hybrid_app/util/service_locator.dart';
 
 part 'product_state.dart';
 
 class ProductCubit extends Cubit<ProductState> {
-  final ProductRepository _productRepository = ServiceLocator.get<ProductRepository>();
+  final ProductRepository productRepository;
 
-  ProductCubit() : super(ProductInitial(page: 0, limit: 5, productList: ProductList(products: [])));
+  ProductCubit({
+    required this.productRepository,
+  }) : super(ProductInitial(page: 0, limit: 5, productList: ProductList(products: [])));
 
   Future<void> loadProducts() async {
-    await _fetchProducts(() => _productRepository.getAllProducts(
+    await _fetchProducts(() => productRepository.getAllProducts(
           limit: state.limit,
           skip: state.skip,
         ));
   }
 
   Future<void> searchProducts(String prefix) async {
-    await _fetchProducts(() => _productRepository.searchProducts(
+    await _fetchProducts(() => productRepository.searchProducts(
           prefix: prefix,
           limit: state.limit,
           skip: state.skip,
@@ -28,7 +29,7 @@ class ProductCubit extends Cubit<ProductState> {
   }
 
   Future<void> filterProducts(String category) async {
-    await _fetchProducts(() => _productRepository.getAllProductsByCategory(
+    await _fetchProducts(() => productRepository.getAllProductsByCategory(
           categoryName: category,
           limit: state.limit,
           skip: state.skip,
