@@ -25,6 +25,7 @@ class RootScreen extends StatelessWidget {
         title: Text('Hybrid App'),
         actions: [
           IconButton(
+            key: const Key('search_button'),
             onPressed: () => _onSearch(context),
             icon: const Icon(Symbols.search),
           ),

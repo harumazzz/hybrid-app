@@ -72,7 +72,6 @@ class _ListProductState extends State<ListProduct> {
       },
       builder: (context, state) {
         return ListView.builder(
-          // preserve the page
           key: PageStorageKey('list-product'),
           controller: _scrollController,
           itemCount: state.productList.size,

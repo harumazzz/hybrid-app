@@ -127,6 +127,7 @@ class DetailScreen extends StatelessWidget {
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
           Text(
+            key: const Key('title'),
             product.title!,
             style: const TextStyle(
               fontSize: 22,
@@ -134,6 +135,7 @@ class DetailScreen extends StatelessWidget {
             ),
           ),
           Text(
+            key: const Key('category'),
             product.category!.toUpperCase(),
             style: TextStyle(
               fontSize: 16,

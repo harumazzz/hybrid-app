@@ -72,6 +72,7 @@ class _SearchPageState extends State<SearchPage> {
           ),
           child: Center(
             child: SearchWidget(
+              key: const Key('search_widget'),
               controller: _searchController,
               onSearch: _onSearch,
             ),

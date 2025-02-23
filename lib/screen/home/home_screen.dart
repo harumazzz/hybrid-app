@@ -9,12 +9,10 @@ class HomeScreen extends StatelessWidget {
   const HomeScreen({super.key});
 
   Widget _buildList() {
-    return Expanded(
-      child: ListProduct(
-        onChange: (cubit) async {
-          return await cubit.loadProducts();
-        },
-      ),
+    return ListProduct(
+      onChange: (cubit) async {
+        return await cubit.loadProducts();
+      },
     );
   }
 

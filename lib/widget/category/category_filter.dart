@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:hybrid_app/cubit/category_cubit/category_cubit.dart';
 import 'package:hybrid_app/cubit/cubit/product_cubit.dart';
+import 'package:hybrid_app/model/category.dart';
 import 'package:hybrid_app/util/dialog_helper.dart';
 import 'package:hybrid_app/util/modal_helper.dart';
 import 'package:hybrid_app/util/ui_helper.dart';
@@ -15,11 +16,11 @@ class CategoryFilter extends StatelessWidget {
     required BuildContext context,
     required CategoryLoaded state,
   }) {
-    ModalHelper.showDropDownModal(
+    ModalHelper.showDropDownModal<Category>(
       context: context,
-      data: UiHelper.makeDefaultItems(data: state.value.data!),
+      data: UiHelper.makeDefaultItems<Category>(data: state.value.data!),
       onTap: (selectedItems) async {
-        final result = UiHelper.toItemList(selectedItems);
+        final result = UiHelper.toItemList<Category>(selectedItems);
         await _onTap(context, result[0].slug!);
       },
     );
