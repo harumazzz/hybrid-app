@@ -1,0 +1,8 @@
+{
+	"@@locale": "vi",
+	"title": "Hybrid App",
+	"@title": {
+		"type": "text",
+		"description": "Tiêu đề ứng dụng"
+	}
+}

@@ -1,0 +1,8 @@
+{
+	"@@locale": "en",
+	"title": "Hybrid App",
+	"@title": {
+		"type": "text",
+		"description": "The title of the app"
+	}
+}

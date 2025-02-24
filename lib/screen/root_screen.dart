@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:hybrid_app/cubit/cubit/product_cubit.dart';
+import 'package:hybrid_app/extension/localization.dart';
 import 'package:hybrid_app/screen/home/home_screen.dart';
 import 'package:hybrid_app/screen/search/search_page.dart';
 import 'package:hybrid_app/widget/category/category_filter.dart';
@@ -22,7 +23,7 @@ class RootScreen extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text('Hybrid App'),
+        title: Text(context.localization.title),
         actions: [
           IconButton(
             key: const Key('search_button'),

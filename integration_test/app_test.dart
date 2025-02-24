@@ -28,6 +28,7 @@ void main() {
       await tester.pumpAndSettle();
       expect(titleWidget, findsOneWidget);
       expect(categoryWidget, findsOneWidget);
+      await tester.pumpAndSettle(const Duration(seconds: 3));
     });
 
     testWidgets('Should load category', (WidgetTester tester) async {
@@ -39,6 +40,7 @@ void main() {
       final selectedItem = find.text('Beauty');
       await tester.pumpAndSettle();
       expect(selectedItem, findsOneWidget);
+      await tester.pumpAndSettle(const Duration(seconds: 3));
     });
 
     testWidgets('Should search for product', (WidgetTester tester) async {
@@ -51,9 +53,10 @@ void main() {
       expect(searchField, findsOneWidget);
       await tester.pumpAndSettle();
       await tester.enterText(searchField, 'h');
-      await tester.pumpAndSettle(const Duration(seconds: 3));
+      await tester.pumpAndSettle(const Duration(seconds: 2));
       final firstProduct = find.byType(ProductItemWidget).first;
       expect(firstProduct, findsOneWidget);
+      await tester.pumpAndSettle(const Duration(seconds: 3));
     });
 
     testWidgets('Should filter for product by category', (WidgetTester tester) async {
@@ -69,6 +72,7 @@ void main() {
       await tester.pumpAndSettle();
       final firstProduct = find.byType(ProductItemWidget).first;
       expect(firstProduct, findsOneWidget);
+      await tester.pumpAndSettle(const Duration(seconds: 3));
     });
   });
 }

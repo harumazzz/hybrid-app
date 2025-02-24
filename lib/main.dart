@@ -2,9 +2,11 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:hybrid_app/cubit/category_cubit/category_cubit.dart';
 import 'package:hybrid_app/cubit/cubit/product_cubit.dart';
+import 'package:hybrid_app/i18n/app_localizations.dart';
 import 'package:hybrid_app/repository/product_repository.dart';
 import 'package:hybrid_app/screen/root_screen.dart';
 import 'package:hybrid_app/util/service_locator.dart';
+import 'package:flutter_localizations/flutter_localizations.dart';
 
 void main() {
   WidgetsFlutterBinding.ensureInitialized();
@@ -50,6 +52,16 @@ class MyApp extends StatelessWidget {
           ),
         ),
         home: RootScreen(),
+        localizationsDelegates: [
+          AppLocalizations.delegate,
+          GlobalMaterialLocalizations.delegate,
+          GlobalWidgetsLocalizations.delegate,
+          GlobalCupertinoLocalizations.delegate,
+        ],
+        supportedLocales: [
+          Locale('en'),
+          Locale('vi'),
+        ],
       ),
     );
   }
