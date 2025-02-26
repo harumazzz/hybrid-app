@@ -1,10 +1,18 @@
-class Meta {
+import 'package:equatable/equatable.dart';
+
+// ignore: must_be_immutable
+class Meta extends Equatable {
   String? createdAt;
   String? updatedAt;
   String? barcode;
   String? qrCode;
 
-  Meta({this.createdAt, this.updatedAt, this.barcode, this.qrCode});
+  Meta({
+    this.createdAt,
+    this.updatedAt,
+    this.barcode,
+    this.qrCode,
+  });
 
   Meta.fromJson(Map<String, dynamic> json) {
     createdAt = json['createdAt'];
@@ -35,4 +43,23 @@ class Meta {
       qrCode: qrCode ?? this.qrCode,
     );
   }
+
+  @override
+  bool operator ==(Object other) {
+    if (identical(this, other)) return true;
+
+    return other is Meta &&
+        other.createdAt == createdAt &&
+        other.updatedAt == updatedAt &&
+        other.barcode == barcode &&
+        other.qrCode == qrCode;
+  }
+
+  @override
+  int get hashCode {
+    return createdAt.hashCode ^ updatedAt.hashCode ^ barcode.hashCode ^ qrCode.hashCode;
+  }
+
+  @override
+  List<Object?> get props => [createdAt, updatedAt, barcode, qrCode];
 }

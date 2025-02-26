@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:hybrid_app/extension/localization.dart';
 import 'package:material_symbols_icons/symbols.dart';
 
 class SearchWidget extends StatelessWidget {
@@ -18,7 +19,7 @@ class SearchWidget extends StatelessWidget {
       controller: controller,
       onChanged: onSearch,
       decoration: InputDecoration(
-        hintText: 'Search...',
+        hintText: '${context.localization.search}...',
         suffixIcon: Row(
           mainAxisAlignment: MainAxisAlignment.end,
           mainAxisSize: MainAxisSize.min,

@@ -1,6 +1,10 @@
+import 'package:collection/collection.dart';
+import 'package:equatable/equatable.dart';
+
 import 'package:hybrid_app/model/product.dart';
 
-class ProductList {
+// ignore: must_be_immutable
+class ProductList extends Equatable {
   List<Product>? products;
 
   ProductList({
@@ -34,4 +38,18 @@ class ProductList {
     assert(products != null);
     return products![index];
   }
+
+  @override
+  bool operator ==(Object other) {
+    if (identical(this, other)) return true;
+    final listEquals = const DeepCollectionEquality().equals;
+
+    return other is ProductList && listEquals(other.products, products);
+  }
+
+  @override
+  int get hashCode => products.hashCode;
+
+  @override
+  List<Object?> get props => [products];
 }

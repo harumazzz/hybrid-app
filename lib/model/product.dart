@@ -1,8 +1,12 @@
+import 'package:collection/collection.dart';
+import 'package:equatable/equatable.dart';
+
 import 'package:hybrid_app/model/dimension.dart';
 import 'package:hybrid_app/model/meta.dart';
 import 'package:hybrid_app/model/review.dart';
 
-class Product {
+// ignore: must_be_immutable
+class Product extends Equatable {
   int? id;
   String? title;
   String? description;
@@ -164,5 +168,89 @@ class Product {
       images: images ?? this.images,
       thumbnail: thumbnail ?? this.thumbnail,
     );
+  }
+
+  @override
+  List<Object?> get props {
+    return [
+      id,
+      title,
+      description,
+      category,
+      price,
+      discountPercentage,
+      rating,
+      stock,
+      tags,
+      brand,
+      sku,
+      weight,
+      dimensions,
+      warrantyInformation,
+      shippingInformation,
+      availabilityStatus,
+      reviews,
+      returnPolicy,
+      minimumOrderQuantity,
+      meta,
+      images,
+      thumbnail,
+    ];
+  }
+
+  @override
+  bool operator ==(Object other) {
+    if (identical(this, other)) return true;
+    final listEquals = const DeepCollectionEquality().equals;
+
+    return other is Product &&
+        other.id == id &&
+        other.title == title &&
+        other.description == description &&
+        other.category == category &&
+        other.price == price &&
+        other.discountPercentage == discountPercentage &&
+        other.rating == rating &&
+        other.stock == stock &&
+        listEquals(other.tags, tags) &&
+        other.brand == brand &&
+        other.sku == sku &&
+        other.weight == weight &&
+        other.dimensions == dimensions &&
+        other.warrantyInformation == warrantyInformation &&
+        other.shippingInformation == shippingInformation &&
+        other.availabilityStatus == availabilityStatus &&
+        listEquals(other.reviews, reviews) &&
+        other.returnPolicy == returnPolicy &&
+        other.minimumOrderQuantity == minimumOrderQuantity &&
+        other.meta == meta &&
+        listEquals(other.images, images) &&
+        other.thumbnail == thumbnail;
+  }
+
+  @override
+  int get hashCode {
+    return id.hashCode ^
+        title.hashCode ^
+        description.hashCode ^
+        category.hashCode ^
+        price.hashCode ^
+        discountPercentage.hashCode ^
+        rating.hashCode ^
+        stock.hashCode ^
+        tags.hashCode ^
+        brand.hashCode ^
+        sku.hashCode ^
+        weight.hashCode ^
+        dimensions.hashCode ^
+        warrantyInformation.hashCode ^
+        shippingInformation.hashCode ^
+        availabilityStatus.hashCode ^
+        reviews.hashCode ^
+        returnPolicy.hashCode ^
+        minimumOrderQuantity.hashCode ^
+        meta.hashCode ^
+        images.hashCode ^
+        thumbnail.hashCode;
   }
 }

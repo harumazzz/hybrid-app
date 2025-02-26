@@ -1,4 +1,7 @@
-class Dimension {
+import 'package:equatable/equatable.dart';
+
+// ignore: must_be_immutable
+class Dimension extends Equatable {
   double? width;
   double? height;
   double? depth;
@@ -34,4 +37,17 @@ class Dimension {
       depth: depth ?? this.depth,
     );
   }
+
+  @override
+  bool operator ==(Object other) {
+    if (identical(this, other)) return true;
+
+    return other is Dimension && other.width == width && other.height == height && other.depth == depth;
+  }
+
+  @override
+  int get hashCode => width.hashCode ^ height.hashCode ^ depth.hashCode;
+
+  @override
+  List<Object?> get props => [width, height, depth];
 }

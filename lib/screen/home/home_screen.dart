@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:hybrid_app/cubit/cubit/product_cubit.dart';
+import 'package:hybrid_app/cubit/product_cubit/product_cubit.dart';
 import 'package:hybrid_app/widget/list/list_product.dart';
 import 'package:hybrid_app/util/dialog_helper.dart';
 import 'package:hybrid_app/widget/loading/loading_widget.dart';

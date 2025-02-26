@@ -4,5 +4,105 @@
 	"@title": {
 		"type": "text",
 		"description": "The title of the app"
+	},
+	"stock": "Stock",
+	"@stock": {
+		"type": "text",
+		"description": "The amount of product left"
+	},
+	"search": "Search",
+	"@search": {
+		"type": "text",
+		"description": "Search for products"
+	},
+	"okay": "Okay",
+	"@okay": {
+		"type": "text",
+		"description": "Agree to something"
+	},
+	"error_occured": "Error occured",
+	"@error_occured": {
+		"type": "text",
+		"description": "An error occured"
+	},
+	"availibility": "Availibility",
+	"@availibility": {
+		"type": "text",
+		"description": "The availibility of the product"
+	},
+	"product_information": "Product Information",
+	"@product_information": {
+		"type": "text",
+		"description": "Detailed information about the product"
+	},
+	"brand": "Brand",
+	"@brand": {
+		"type": "text",
+		"description": "The brand of the product"
+	},
+	"sku": "SKU",
+	"@sku": {
+		"type": "text",
+		"description": "The Stock Keeping Unit of the product"
+	},
+	"weight": "Weight",
+	"@weight": {
+		"type": "text",
+		"description": "The weight of the product"
+	},
+	"dimension": "Dimension",
+	"@dimension": {
+		"type": "text",
+		"description": "The dimension of the product"
+	},
+	"warranty": "Warranty",
+	"@warranty": {
+		"type": "text",
+		"description": "The warranty of the product"
+	},
+	"return_policy": "Return Policy",
+	"@return_policy": {
+		"type": "text",
+		"description": "The return policy of the product"
+	},
+	"shipping": "Shipping",
+	"@shipping": {
+		"type": "text",
+		"description": "The shipping of the product"
+	},
+	"product_code": "Product Code",
+	"@product_code": {
+		"type": "text",
+		"description": "The product code"
+	},
+	"barcode": "Bar Code",
+	"@barcode": {
+		"type": "text",
+		"description": "The product bar code"
+	},
+	"review": "Reviews",
+	"@review": {
+		"type": "text",
+		"description": "Review of the product"
+	},
+	"no_review": "No reviews available at the moment",
+	"@no_review": {
+		"type": "text",
+		"description": "No reviews available at the moment"
+	},
+	"change_language": "Change language",
+	"@change_language": {
+		"type": "text",
+		"description": "Change language of the application"
+	},
+	"en": "English",
+	"@en": {
+		"type": "text",
+		"description": "English language"
+	},
+	"vi": "Vietnamese",
+	"@vi": {
+		"type": "text",
+		"description": "Vietnamese language"
 	}
 }

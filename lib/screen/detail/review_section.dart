@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:hybrid_app/extension/localization.dart';
 import 'package:hybrid_app/model/review.dart';
 import 'package:material_symbols_icons/symbols.dart';
 
@@ -64,13 +65,13 @@ class ReviewSection extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     if (reviews == null || reviews!.isEmpty) {
-      return const Text('No reviews available at the moment.', style: TextStyle(fontSize: 16));
+      return Text(context.localization.no_review, style: TextStyle(fontSize: 16));
     }
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
         Text(
-          'Reviews:',
+          '${context.localization.review}:',
           style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold),
         ),
         const SizedBox(height: 8),

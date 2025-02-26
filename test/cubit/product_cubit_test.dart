@@ -1,5 +1,5 @@
 import 'package:flutter_test/flutter_test.dart';
-import 'package:hybrid_app/cubit/cubit/product_cubit.dart';
+import 'package:hybrid_app/cubit/product_cubit/product_cubit.dart';
 import 'package:hybrid_app/model/product.dart';
 import 'package:hybrid_app/model/product_list.dart';
 import 'package:hybrid_app/repository/product_repository.dart';
@@ -74,22 +74,22 @@ void main() {
       when(mockProductRepository.getAllProducts(limit: 5, skip: 0)).thenAnswer(
         (_) async => ProductList(
           products: [
-            Product(id: 1),
-            Product(id: 2),
-            Product(id: 3),
-            Product(id: 4),
-            Product(id: 5),
+            Product(id: 1, brand: 'A'),
+            Product(id: 2, brand: 'B'),
+            Product(id: 3, brand: 'C'),
+            Product(id: 4, brand: 'D'),
+            Product(id: 5, brand: 'E'),
           ],
         ),
       );
       when(mockProductRepository.getAllProducts(limit: 5, skip: 5)).thenAnswer(
         (_) async => ProductList(
           products: [
-            Product(id: 6),
-            Product(id: 7),
-            Product(id: 8),
-            Product(id: 9),
-            Product(id: 10),
+            Product(id: 6, brand: 'A'),
+            Product(id: 7, brand: 'A'),
+            Product(id: 8, brand: 'A'),
+            Product(id: 9, brand: 'A'),
+            Product(id: 10, brand: 'A'),
           ],
         ),
       );
@@ -104,9 +104,20 @@ void main() {
       isA<ProductFinish>(),
       isA<ProductLoading>(),
       isA<ProductFinish>().having(
-        (state) => state.productList.size,
+        (state) => state.productList.products,
         'Having 10 products',
-        10,
+        [
+          Product(id: 1, brand: 'A'),
+          Product(id: 2, brand: 'B'),
+          Product(id: 3, brand: 'C'),
+          Product(id: 4, brand: 'D'),
+          Product(id: 5, brand: 'E'),
+          Product(id: 6, brand: 'A'),
+          Product(id: 7, brand: 'A'),
+          Product(id: 8, brand: 'A'),
+          Product(id: 9, brand: 'A'),
+          Product(id: 10, brand: 'A'),
+        ],
       ),
     ],
   );

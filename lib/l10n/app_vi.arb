@@ -4,5 +4,105 @@
 	"@title": {
 		"type": "text",
 		"description": "Tiêu đề ứng dụng"
+	},
+	"stock": "Số lượng",
+	"@stock": {
+		"type": "text",
+		"description": "Số lượng sản phẩm còn lại"
+	},
+	"search": "Tìm kiếm",
+	"@search": {
+		"type": "text",
+		"description": "Tìm kiếm sản phẩm"
+	},
+	"okay": "Đồng ý",
+	"@okay": {
+		"type": "text",
+		"description": "Đồng ý với điều gì đó"
+	},
+	"error_occured": "Lỗi xảy ra",
+	"@error_occured": {
+		"type": "text",
+		"description": "Một lỗi xảy ra"
+	},
+	"availibility": "Trạng thái",
+	"@availibility": {
+		"type": "text",
+		"description": "Sự sẵn sàng của sản phẩm"
+	},
+	"product_information": "Thông tin sản phẩm",
+	"@product_information": {
+		"type": "text",
+		"description": "Thông tin chi tiết về sản phẩm"
+	},
+	"brand": "Thương hiệu",
+	"@brand": {
+		"type": "text",
+		"description": "Thương hiệu của sản phẩm"
+	},
+	"sku": "SKU",
+	"@sku": {
+		"type": "text",
+		"description": "Mã SKU của sản phẩm"
+	},
+	"weight": "Trọng lượng",
+	"@weight": {
+		"type": "text",
+		"description": "Trọng lượng của sản phẩm"
+	},
+	"dimension": "Kích thước",
+	"@dimension": {
+		"type": "text",
+		"description": "Kích thước của sản phẩm"
+	},
+	"warranty": "Bảo hành",
+	"@warranty": {
+		"type": "text",
+		"description": "Thời gian bảo hành"
+	},
+	"return_policy": "Chính sách bảo hành",
+	"@return_policy": {
+		"type": "text",
+		"description": "Chính sách bảo hành của sản phẩm"
+	},
+	"shipping": "Vận chuyển",
+	"@shipping": {
+		"type": "text",
+		"description": "Vận chuyển của sản phẩm"
+	},
+	"product_code": "Mã sản phẩm",
+	"@product_code": {
+		"type": "text",
+		"description": "Mã sản phẩm"
+	},
+	"barcode": "Mã vạch",
+	"@barcode": {
+		"type": "text",
+		"description": "Mã vạch của sản phẩm"
+	},
+	"review": "Đánh giá",
+	"@review": {
+		"type": "text",
+		"description": "Đánh giá về sản phẩm"
+	},
+	"no_review": "Không có đánh giá về sản phẩm lúc này",
+	"@no_review": {
+		"type": "text",
+		"description": "Không có đánh giá về sản phẩm lúc này"
+	},
+	"change_language": "Thay đổi ngôn ngữ",
+	"@change_language": {
+		"type": "text",
+		"description": "Thay đổi ngôn ngữ của ứng dụng"
+	},
+	"en": "Tiếng Anh",
+	"@en": {
+		"type": "text",
+		"description": "Ngôn ngữ tiếng anh"
+	},
+	"vi": "Tiếng Việt",
+	"@vi": {
+		"type": "text",
+		"description": "Ngôn ngữ tiếng việt"
 	}
 }

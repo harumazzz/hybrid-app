@@ -1,4 +1,7 @@
-class Category {
+import 'package:equatable/equatable.dart';
+
+// ignore: must_be_immutable
+class Category extends Equatable {
   // Maybe should have id too ?
   String? slug;
   String? name;
@@ -37,4 +40,17 @@ class Category {
     assert(name != null);
     return name!;
   }
+
+  @override
+  bool operator ==(Object other) {
+    if (identical(this, other)) return true;
+
+    return other is Category && other.slug == slug && other.name == name && other.url == url;
+  }
+
+  @override
+  int get hashCode => slug.hashCode ^ name.hashCode ^ url.hashCode;
+
+  @override
+  List<Object?> get props => [slug, name, url];
 }

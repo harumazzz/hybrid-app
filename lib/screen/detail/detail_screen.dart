@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:hybrid_app/extension/localization.dart';
 import 'package:hybrid_app/model/product.dart';
 import 'package:hybrid_app/screen/detail/review_section.dart';
 import 'package:hybrid_app/widget/image/cache_image.dart';
@@ -66,21 +67,23 @@ class DetailScreen extends StatelessWidget {
     );
   }
 
-  Widget _buildStock() {
+  Widget _buildStock(
+    BuildContext context,
+  ) {
     exchangeColor() => product.stock! > 0 ? Colors.green : Colors.red;
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       mainAxisAlignment: MainAxisAlignment.start,
       children: [
         Text(
-          'Stock: ${product.stock}',
+          '${context.localization.stock}: ${product.stock}',
           style: const TextStyle(
             fontSize: 16,
           ),
         ),
         const SizedBox(height: 5.0),
         Text(
-          'Availability: ${product.availabilityStatus}',
+          '${context.localization.availibility}: ${product.availabilityStatus}',
           style: TextStyle(
             fontSize: 16,
             color: exchangeColor(),
@@ -90,37 +93,42 @@ class DetailScreen extends StatelessWidget {
     );
   }
 
-  Widget _buildInformation() {
+  Widget _buildInformation(
+    BuildContext context,
+  ) {
     text(String key, String value) => Text(
           '$key: $value',
           style: const TextStyle(fontSize: 16),
         );
+    final los = context.localization;
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       mainAxisAlignment: MainAxisAlignment.start,
       children: [
         Text(
-          'Product Information:',
+          '${los.product_information}:',
           style: const TextStyle(
             fontSize: 18,
             fontWeight: FontWeight.bold,
           ),
         ),
-        text('Brand', product.brand!),
-        text('SKU', product.sku!),
-        text('Weight', '${product.weight!}g'),
+        text(los.brand, product.brand!),
+        text(los.sku, product.sku!),
+        text(los.weight, '${product.weight!}g'),
         text(
-          'Dimensions',
+          los.dimension,
           '${product.dimensions!.width} x ${product.dimensions!.height} x ${product.dimensions!.depth}',
         ),
-        text('Warranty', product.warrantyInformation!),
-        text('Return Policy', product.returnPolicy!),
-        text('Shipping', product.shippingInformation!),
+        text(los.warranty, product.warrantyInformation!),
+        text(los.warranty, product.returnPolicy!),
+        text(los.shipping, product.shippingInformation!),
       ],
     );
   }
 
-  Widget _buildProductDetails() {
+  Widget _buildProductDetails(
+    BuildContext context,
+  ) {
     return Padding(
       padding: const EdgeInsets.all(16.0),
       child: Column(
@@ -145,12 +153,12 @@ class DetailScreen extends StatelessWidget {
           const SizedBox(height: 10),
           _buildPricing(),
           const SizedBox(height: 10),
-          _buildStock(),
+          _buildStock(context),
           const SizedBox(height: 10),
           Text(product.description!, style: const TextStyle(fontSize: 16)),
           const Divider(),
-          _buildInformation(),
-          _buildMetaData(),
+          _buildInformation(context),
+          _buildMetaData(context),
           const Divider(),
           ReviewSection(
             reviews: product.reviews,
@@ -160,13 +168,15 @@ class DetailScreen extends StatelessWidget {
     );
   }
 
-  Widget _buildMetaData() {
+  Widget _buildMetaData(
+    BuildContext context,
+  ) {
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
         const Divider(),
-        const Text(
-          "Product Code:",
+        Text(
+          "${context.localization.product_code}:",
           style: TextStyle(
             fontSize: 18,
             fontWeight: FontWeight.bold,
@@ -185,7 +195,7 @@ class DetailScreen extends StatelessWidget {
               ),
               const SizedBox(height: 5.0),
               Text(
-                'Barcode: ${product.meta!.barcode}',
+                '${context.localization.barcode}: ${product.meta!.barcode}',
                 style: const TextStyle(
                   fontSize: 16,
                 ),
@@ -209,7 +219,7 @@ class DetailScreen extends StatelessWidget {
         child: Column(
           children: [
             _buildSlidableImages(),
-            _buildProductDetails(),
+            _buildProductDetails(context),
           ],
         ),
       ),
