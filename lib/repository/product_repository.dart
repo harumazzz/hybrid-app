@@ -6,7 +6,7 @@ import 'package:hybrid_app/model/product_list.dart';
 class ProductRepository {
   final ProductApi _productApi;
 
-  ProductRepository(this._productApi);
+  const ProductRepository(this._productApi);
 
   Future<ProductList> getAllProducts({
     required int skip,
